@@ -1,0 +1,64 @@
+class MyCircularQueue {
+private:
+    int front;
+    int size;
+    int capacity;
+    vector<int> q;
+public:
+    MyCircularQueue(int k) { // initializes queue (q) capacity k, current size is 0, nothing at front
+        capacity = k;
+        q = vector<int>(k);
+        front = 0;
+        size = 0;
+    }
+    
+    bool enQueue(int value) {
+        if (isFull()) { return false; } // operation is unsuccessful bc q reached max capacity
+
+        int rear_index = (front + size) % capacity; // calculates rear position
+        q[rear_index] = value; // inserts an element
+        ++size; // increase size of q
+        return true; // operation successful
+    }
+    
+    bool deQueue() { 
+        if (isEmpty()) { return false; } // operation is unsuccessful bc q is empty 
+
+        front = (front + 1) % capacity; // deletes an element
+        --size; // decreases size of q
+        return true; // operation successful
+    }
+    
+    int Front() {
+        if (isEmpty()) { return -1; } // q is empty, nothing at front
+        return q[front];
+    }
+    
+    int Rear() {
+        if (isEmpty()) { // q is empty, nothing at rear
+            return -1;
+        }
+
+        int rear_index = (front + size - 1) % capacity; // calculates rear position
+        return q[rear_index];
+    }
+    
+    bool isEmpty() {
+        return size == 0;
+    }
+    
+    bool isFull() {
+        return size == capacity;
+    }
+};
+
+/**
+ * Your MyCircularQueue object will be instantiated and called as such:
+ * MyCircularQueue* obj = new MyCircularQueue(k);
+ * bool param_1 = obj->enQueue(value);
+ * bool param_2 = obj->deQueue();
+ * int param_3 = obj->Front();
+ * int param_4 = obj->Rear();
+ * bool param_5 = obj->isEmpty();
+ * bool param_6 = obj->isFull();
+ */
