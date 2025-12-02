@@ -1,0 +1,27 @@
+/**
+ * Definition for singly-linked list.
+ * struct ListNode {
+ *     int val;
+ *     ListNode *next;
+ *     ListNode() : val(0), next(nullptr) {}
+ *     ListNode(int x) : val(x), next(nullptr) {}
+ *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+ * };
+ */
+class Solution {
+public:
+    ListNode* sortList(ListNode* head) { // time: O(n^2), space: O(1)
+        for (ListNode* i = head; i != nullptr; i = i->next){ // outerloop: loops through the entire list until it reaches the end
+            ListNode* minnode = i; // assigns the current item as the smallest value
+            for (ListNode* j = i->next; j!= nullptr; j = j->next){ // innerloop: checks the remaining nodes
+                if (j->val < minnode->val){ // compares the values
+                    minnode = j; // reassigns the smallest value
+                }
+            }
+            int temp = i->val; // holder for previous value
+            i->val = minnode->val; // switches the value to the smallest value
+            minnode->val = temp; // finishes swapping the value
+        }
+        return head; // returns output
+    }
+};
