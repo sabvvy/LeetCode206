@@ -1,0 +1,35 @@
+class Solution {
+public:
+    int findPeakElement(vector<int>& nums) {
+        // We will use binary search to find a peak.
+        // left starts at the beginning of the array
+        int left = 0;
+        // right starts at the end of the array
+        int right = nums.size() - 1;
+
+        // Keep searching while there is more than one element in the range
+        while (left < right) {
+            // Find the middle index
+            int mid = left + (right - left) / 2;
+
+            // Check the direction of the "slope":
+            // If nums[mid] > nums[mid + 1], it means the slope is going DOWN.
+            // A peak MUST be on the left side (including mid),
+            // because we are already going down from a higher point.
+            if (nums[mid] > nums[mid + 1]) {
+                // Move the right pointer to mid
+                right = mid;
+            }
+            // Otherwise, nums[mid] < nums[mid + 1], meaning the slope is going UP.
+            // If the slope is going up, a peak MUST be on the right side.
+            else {
+                // Move left pointer to mid + 1 to search the right half
+                left = mid + 1;
+            }
+        }
+
+        // When left == right, that position is a peak.
+        // We return the index.
+        return left;
+    }
+};
