@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Solution {
+public:
+    TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        if (root == nullptr || root == p || root == q){ // if we have null or p/q then we return it also base case for recursion
+            return root;
+        }
+        // recurse on left and right looking for p and q or a LCA
+        TreeNode* left = lowestCommonAncestor(root->left, p, q);
+        // same thing here
+        TreeNode* right = lowestCommonAncestor(root->right, p, q);
+        // here if both sides arent null, p and q are in different sub trees
+        // root is LCA, if the left return p q or lca is there
+        // if the right returns then the other node must be there
+        if (left != nullptr && right != nullptr) return root;
+        // otherwise return the side that isn't null
+        return(left != nullptr) ? left : right;
+        // both p and q must be in the left tree (or is one of them)
+        // return left upward, same for the right
+        // if both null the subtree contains neither p nor q
+        // O(n) time for # of nodes O(h) space for height of tree
+        // every node is seen once and recursion depth is tree height (h)
+    }
+};
