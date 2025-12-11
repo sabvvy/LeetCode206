@@ -1,6 +1,6 @@
 class Solution {
 public:
-    int findKthLargest(vector<int>& nums, int k) {
+    int findKthLargest(vector<int>& nums, int k) { // time: O(nlogk), space: O(k)
         // Min-heap (keeps smallest element on top)
         priority_queue<int, vector<int>, greater<int>> minHeap;
 
